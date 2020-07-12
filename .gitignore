@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Test and old files
+*.test.cpp
+*.~cpp
+
+# Object and Bin folder
+bin
+obj
