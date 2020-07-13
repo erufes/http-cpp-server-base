@@ -19,7 +19,15 @@ Para rodar em uma porta específica, basta digitar o número da porta após o no
 ### Página de teste
 Para testar o servidor você pode utilizar a página de teste. Ela se encontra em [docs/test.html](docs/test.html) e se parece com a figura a seguir:
 ![Página de Teste](docs/img/teste.png)
-Nela você pode testar os métodos do servidor de forma intuitiva.
+Nela você pode testar os métodos do servidor de forma intuitiva.<br>
+O servidor consegue responder as requisições das seguintes fontes:
+
+- chrome
+- firefox
+- opera
+- python
+
+(Outras fontes não foram testadas).
 ## Informações de autoria e licença
 ### Autoria
 - [ERUS - Equipe de Robótica da UFES](http://erus.ufes.br)
