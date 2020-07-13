@@ -38,3 +38,6 @@
 # Object and Bin folder
 bin
 obj
+
+# vscode files
+.vscode
