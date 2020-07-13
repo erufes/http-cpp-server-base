@@ -22,7 +22,7 @@ Para testar o servidor você pode utilizar a página de teste. Ela se encontra e
 Nela você pode testar os métodos do servidor de forma intuitiva.
 ## Informações de autoria e licença
 ### Autoria
-- [ERUS - Equipe de Robótica da UFES](erus.ufes.br)
-  - [Lorena "Ino" Bassani](github.com/LBBassani) - *trabalho inicial*
+- [ERUS - Equipe de Robótica da UFES](http://erus.ufes.br)
+  - [Lorena "Ino" Bassani](https://github.com/LBBassani) - *trabalho inicial*
 ### Licenciamento
 Este projeto está licenciado de acordo com os termos da licença GPLv3. Veja [LICENSE](LICENSE) para mais detalhes.
