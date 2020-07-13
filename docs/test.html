@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="UTF-8">
+    <title>Teste do Servidor http/c++</title>
+
+    <!-- import bootstrap -->
+    <link rel="stylesheet" href="./src/bootstrap.min.css">
+    
+</header>
+
+<body>
+
+    <div class="container-fluid">
+        <h1>Teste do servidor http escrito em c++</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-4">
+                <h2>Informações</h2>
+                <p>
+                    Está página testa o seu servidor. Basta digitar a porta onde o servidor está rodando, selecionar o endereço e o 
+                    método que você deseja. Caso o método seja POST, você pode enviar uma mensagem para o servidor. A resposta será 
+                    exibida no quadro mais a direita.
+                </p>
+                <h3>Sobre o Servidor</h3>
+                <hr>
+                <p>
+                    Código : <a href="https://github.com/LBBassani/http-cpp-server-base" target="_blank">https://github.com/LBBassani/http-cpp-server-base</a><br>
+                    Autor : Lorena Bassani<br>
+                    Data : 2020/07<br>
+                </p>
+                <h3>Instruções</h3>
+                <hr>
+                <p>
+                    O servidor roda em SO Linux. Ele pode ser baixado pelo repositório github acima e compilado com o comando make.<br>
+                    Para rodar o servidor o comando é :
+                    <spam class="card" ><spam class="card-body">./bin/erushttpserver porta(=30000)</spam></spam>
+                </p>    
+            </div>
+
+            <div class="col-4">
+                <h2>Parâmetros do teste</h2>
+                
+                <div class="card">
+                <div class="card-body">
+
+                    <!-- input da porta -->
+                    <div class="form-group">
+                        <label for="porta">Porta : </label>
+                        <input class="form-control" pattern="\d*" id="porta" type="text" value="30000">
+                    </div>
+
+                    <!-- input do endereço -->
+                    <label>Endereço : </label>
+                    <div class="form-group">
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="hello" name="enderecoRadio" value="/hello" type="radio" checked>
+                            <label class="form-check-label" for="hello">/hello</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="bye" name="enderecoRadio" value="/bye" type="radio">
+                            <label class="form-check-label" for="bye">/bye</label>
+                        </div>
+                    </div>
+
+                    <!-- input do metodo -->
+                    <label>Método : </label>
+                    <div class="form-group">
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="get" name="metodoRadio" value="GET" type="radio" checked>
+                            <label class="form-check-label" for="get">GET</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" id="post" name="metodoRadio" value="POST" type="radio">
+                            <label class="form-check-label" for="post">POST</label>
+                        </div>
+                    </div>
+
+                    <!-- input da mensagem -->
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem :</label>
+                        <textarea disabled class="form-control" id="mensagem" type="text" rows="5" ></textarea>
+                        <small class="text-muted">Usado apenas no método POST</small>
+                    </div>
+
+                    <!-- botão de envio -->
+                    <div class="form-group">
+                        <button id="enviar" class="btn btn-primary btn-block">Enviar</button>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <h2>Resultado do teste</h2>
+                <div class="card">
+                <div class="card-body">
+
+                    <iframe id="resposta" srcdoc="<p>Resposta do teste</p>" title="Resposta do teste" width="100%" height="100%" style="border:none;"></iframe>
+
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- import sweetalert -->
+    <script src="src/sweetalert2.all.min.js"></script>
+
+    <!-- scripts gerais -->
+    <script>
+        document.addEventListener("DOMContentLoaded", 
+            function(){ 
+                document.querySelector("#enviar").addEventListener("click", obterDados)
+                document.querySelector("#post").addEventListener("change", habilitaMensagem)
+                document.querySelector("#get").addEventListener("change", habilitaMensagem)
+            }, 
+            false)
+
+        function habilitaMensagem() {
+            if (document.querySelector("#post").checked){
+                document.querySelector("#mensagem").disabled = false
+            }else{
+                document.querySelector("#mensagem").disabled = true
+            }
+        }
+
+        function obterDados() {
+            let porta = document.querySelector("#porta").value
+            let endereco = document.querySelector("input[name='enderecoRadio']:checked").value
+            let metodo = document.querySelector("input[name='metodoRadio']:checked").value
+            console.log(metodo)
+            let mensagem = (metodo == "POST") ? document.querySelector("#mensagem").value : null
+            console.log(mensagem)
+
+            var xmlHttp = new XMLHttpRequest();
+            
+            xmlHttp.onreadystatechange = function() { 
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    document.querySelector("#resposta").srcdoc = (xmlHttp.responseText);
+            }
+            xmlHttp.open(metodo, "http://localhost:" + porta + endereco, true); // true for asynchronous 
+            xmlHttp.send(mensagem)
+            
+        }
+
+    </script>
+</body>
+</html>
